@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lunara Hotel - Book Your Stay</title>
+    <title>Lunara Hotel - Luxury Hotel & Booking in Quezon City</title>
+    <meta name="description" content="Welcome to Lunara Hotel. Experience luxury, comfort, and serenity. Book your stay, rooms, and suites online.">
+    <meta name="keywords" content="Lunara Hotel, Lunara Hotel Quezon City, Lunara Booking, Lunara Hotel Reservation">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,7 +21,6 @@
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Dark Mode</button>
 </nav>
 
-<!-- TAB 1: HOME PAGE -->
 <div id="home-page" class="tab-content active">
     <header id="home">
         <div class="hero-content">
@@ -33,7 +34,6 @@
     </header>
 </div>
 
-<!-- ABOUT US MODAL POPUP -->
 <div id="aboutModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeAboutModal()">&times;</span>
@@ -59,7 +59,6 @@
     </div>
 </div>
 
-<!-- BOOKING RECEIPT MODAL POPUP (ITO LANG ANG MAKIKITA NG CUSTOMER) -->
 <div id="receiptModal" class="modal">
     <div class="modal-content receipt-card">
         <div class="receipt-header">
@@ -84,7 +83,6 @@
     </div>
 </div>
 
-<!-- TAB 2: FEATURES PAGE -->
 <div id="features-page" class="tab-content container">
     <h2>Why Choose Lunara Hotel</h2>
     <div class="features-grid">
@@ -124,11 +122,9 @@
     </div>
 </div>
 
-<!-- TAB 3: ROOMS PAGE -->
 <div id="rooms-page" class="tab-content container">
     <h2>Our Room Designs</h2>
 
-    <!-- SEARCH & FILTER BAR -->
     <div class="filter-container">
         <input type="text" id="searchInput" onkeyup="filterRooms()" placeholder="Search room by name..." class="filter-input">
         <select id="priceFilter" onchange="filterRooms()" class="filter-select">
@@ -192,7 +188,6 @@
     </div>
 </div>
 
-<!-- TAB 4: BOOKING PAGE -->
 <div id="booking-page" class="tab-content container">
     <h2>Book Your Stay at Lunara Hotel</h2>
     <div class="booking">
@@ -230,7 +225,6 @@
                 </div>
             </div>
 
-            <!-- Price Computation -->
             <div id="price-summary" class="price-summary-box">
                 <p>Total Nights: <strong id="total-nights">0</strong> night(s)</p>
                 <p class="total-price-text">
@@ -238,7 +232,6 @@
                 </p>
             </div>
 
-            <!-- Payment Method -->
             <div class="payment-section">
                 <h3>Payment Method</h3>
                 <div class="payment-options">
@@ -454,7 +447,7 @@ function bookRoom(e) {
     document.getElementById('rec-payment').innerText = bookingData.paymentMethod;
     document.getElementById('rec-total').innerText = bookingData.totalPrice;
 
-    // Pasimpleng isina-save sa background para mabasa ng admin.html
+    // Isina-save sa LocalStorage para mabasa ng admin.html
     let history = JSON.parse(localStorage.getItem('lunaraBookings')) || [];
     history.push(bookingData);
     localStorage.setItem('lunaraBookings', JSON.stringify(history));
