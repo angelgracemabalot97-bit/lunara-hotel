@@ -1,0 +1,462 @@
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', sans-serif; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body { 
+    background: #f8f5f0; 
+    color: #333; 
+}
+
+/* DARK THEME STYLING */
+body.dark-theme {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-theme nav {
+    background: #1e1e1e;
+}
+
+body.dark-theme h2, 
+body.dark-theme .feature-card h3,
+body.dark-theme .room-info h3,
+body.dark-theme .receipt-header h2,
+body.dark-theme .history-card h3 {
+    color: #d4af37;
+}
+
+body.dark-theme .feature-card,
+body.dark-theme .room-card,
+body.dark-theme .booking,
+body.dark-theme .modal-content,
+body.dark-theme .history-card {
+    background: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+body.dark-theme input, 
+body.dark-theme select {
+    background: #2a2a2a;
+    color: white;
+    border-color: #444;
+}
+
+body.dark-theme .price-summary-box {
+    background: #2a2419;
+    border-left-color: #d4af37;
+}
+
+body.dark-theme .payment-card {
+    background: #252525;
+    border-color: #444;
+}
+
+body.dark-theme .payment-details {
+    background: #1a1a1a;
+    border-color: #555;
+}
+
+/* TAB LOGIC */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* HEADER & HERO */
+header {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), 
+                url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600') center/cover no-repeat;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 0 20px;
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 15px;
+    backdrop-filter: blur(3px);
+}
+
+.hero-content h1 {
+    font-size: 4.5em;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 10px rgba(0,0,0,0.6);
+}
+
+.hero-content p {
+    font-size: 1.6em;
+    margin-bottom: 35px;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.hero-btn {
+    font-size: 1.2em;
+    padding: 14px 35px;
+    background: #8b7355;
+    border: 2px solid #e0c9a6;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.hero-btn-secondary {
+    font-size: 1.2em;
+    padding: 14px 35px;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.hero-btn:hover, .hero-btn-secondary:hover {
+    transform: scale(1.05);
+}
+
+/* NAV */
+nav {
+    background: #2c2a29;
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    color: #e0c9a6;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.theme-toggle {
+    background: #8b7355;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* MODALS */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 550px;
+    width: 90%;
+    position: relative;
+    line-height: 1.6;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.about-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* RECEIPT MODAL SPECIFIC STYLES */
+.receipt-header {
+    text-align: center;
+}
+
+.receipt-header h2 {
+    color: #8b7355;
+    margin-bottom: 2px;
+}
+
+.status-badge {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 12px;
+    background: #27ae60;
+    color: white;
+    font-size: 0.85em;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.receipt-body p {
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.receipt-total {
+    font-size: 1.25em;
+    color: #8b7355;
+    margin-top: 10px !important;
+}
+
+/* SECTIONS */
+.container { 
+    max-width: 1200px; 
+    margin: 50px auto; 
+    padding: 20px; 
+    min-height: 70vh;
+}
+
+h2 { 
+    text-align: center; 
+    margin-bottom: 30px; 
+    color: #2c2a29; 
+}
+
+/* FILTER BAR STYLING */
+.filter-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.filter-input, .filter-select {
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    flex: 1;
+    min-width: 200px;
+}
+
+/* ROOM CARD AVAILABILITY BADGES */
+.room-card {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.stock-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 20px;
+    color: white;
+}
+
+.stock-low {
+    background: #e74c3c;
+}
+
+.stock-normal {
+    background: #27ae60;
+}
+
+.features-grid, .rooms {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.feature-card {
+    background: white;
+    padding: 25px 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.feature-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #8b7355;
+}
+
+.room-card img { 
+    width: 100%; 
+    height: 220px; 
+    object-fit: cover; 
+}
+
+.room-info { 
+    padding: 20px; 
+}
+
+.price { 
+    font-size: 1.3em; 
+    font-weight: bold; 
+    margin: 8px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #8b7355;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* HISTORY PAGE STYLING */
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.history-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-left: 5px solid #8b7355;
+}
+
+.history-card h3 {
+    color: #8b7355;
+    margin-bottom: 10px;
+}
+
+.history-card p {
+    margin: 5px 0;
+}
+
+.history-price {
+    font-weight: bold;
+    color: #27ae60;
+    margin-top: 10px !important;
+}
+
+/* BOOKING FORM */
+.booking {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+label { 
+    font-weight: 600; 
+    margin-bottom: 5px; 
+    display: block; 
+}
+
+.price-summary-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f0ebd9;
+    border-left: 5px solid #8b7355;
+    border-radius: 8px;
+    display: none;
+}
+
+.payment-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.payment-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.payment-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fdfdfd;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.pay-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.payment-details {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fafafa;
+    border-radius: 8px;
+    border: 1px dashed #ccc;
+    display: none;
+}
+
+footer {
+    background: #2c2a29;
+    color: #e0c9a6;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}

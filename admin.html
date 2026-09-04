@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunara Hotel - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+        }
+        .admin-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a1a1a;
+            padding: 15px 30px;
+            color: #ffffff;
+        }
+        .admin-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .history-card {
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .history-price {
+            font-size: 1.2em;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .btn-danger {
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-danger:hover {
+            background: #a93226;
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-nav">
+    <h2 style="color: #e0c9a6; margin: 0;">LUNARA HOTEL — ADMIN PANEL</h2>
+    <a href="index.html" style="color: #ffffff; text-decoration: none; font-weight: bold;">← Go to Public Website</a>
+</div>
+
+<div class="container" style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+    
+    <div id="login-box" class="admin-card" style="max-width: 400px; margin: 50px auto; text-align: center;">
+        <h2>Admin Authentication</h2>
+        <p style="color: #666; margin-bottom: 20px;">Please enter your password to access guest records.</p>
+        
+        <input type="password" id="adminPass" placeholder="Enter Password" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+        
+        <button onclick="loginAdmin()" class="btn" style="width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em;">Login to Dashboard</button>
+        
+        <p id="errorMsg" style="color: #e74c3c; margin-top: 15px; display: none; font-weight: bold;">❌ Incorrect Password!</p>
+    </div>
+
+    <div id="dashboard" class="admin-card" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+            <div>
+                <h2 style="margin: 0;">📋 All Guest Reservations</h2>
+                <small style="color: #777;">Live Auto-Sync Enabled</small>
+            </div>
+            <button onclick="logoutAdmin()" class="btn" style="background: #555; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Logout</button>
+        </div>
+
+        <div id="historyList" class="history-grid"></div>
+
+        <div style="text-align: right; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+            <button onclick="clearHistory()" class="btn-danger">Delete All Guest Records</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+let autoRefreshInterval = null;
+
+function loginAdmin() {
+    const pass = document.getElementById('adminPass').value;
+    
+    if (pass === "admin123") {
+        document.getElementById('login-box').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        
+        // Unang load ng history
+        loadBookingHistory();
+
+        // Kusa nitong iche-check at ire-refresh ang records kada 2 segundo
+        autoRefreshInterval = setInterval(loadBookingHistory, 2000);
+    } else {
+        document.getElementById('errorMsg').style.display = 'block';
+    }
+}
+
+function logoutAdmin() {
+    document.getElementById('adminPass').value = '';
+    document.getElementById('login-box').style.display = 'block';
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('errorMsg').style.display = 'none';
+    
+    if (autoRefreshInterval) {
+        clearInterval(autoRefreshInterval);
+    }
+}
+
+function loadBookingHistory() {
+    const historyList = document.getElementById('historyList');
+    
+    // Kukuha mula sa shared LocalStorage ng browser
+    let rawData = localStorage.getItem('lunaraBookings');
+    let history = rawData ? JSON.parse(rawData) : [];
+
+    if (!history || history.length === 0) {
+        historyList.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: #777; padding: 40px 0;">No guest bookings recorded yet.</p>';
+        return;
+    }
+
+    let itemsHTML = '';
+    
+    // I-display mula sa pinakabago papuntang pinakaluma
+    history.slice().reverse().forEach((b) => {
+        itemsHTML += `
+            <div class="history-card">
+                <h3 style="margin-top: 0; color: #d4af37;">${b.room}</h3>
+                <p><strong>Guest Name:</strong> ${b.name}</p>
+                <p><strong>Email:</strong> ${b.email}</p>
+                <p><strong>Guests:</strong> ${b.guests} pax</p>
+                <p><strong>Check-in:</strong> ${b.checkin}</p>
+                <p><strong>Check-out:</strong> ${b.checkout}</p>
+                <p><strong>Payment Method:</strong> ${b.paymentMethod}</p>
+                <hr style="border: 0; border-top: 1px dashed #ccc; margin: 10px 0;">
+                <p class="history-price">Total Paid: ${b.totalPrice}</p>
+            </div>
+        `;
+    });
+
+    historyList.innerHTML = itemsHTML;
+}
+
+function clearHistory() {
+    if (confirm("Are you sure you want to permanently delete all guest reservation records?")) {
+        localStorage.removeItem('lunaraBookings');
+        loadBookingHistory();
+    }
+}
+
+// Automatic na mag-a-update kung nakabukas sa magkaibang tab ang index.html at admin.html
+window.addEventListener('storage', function(e) {
+    if (e.key === 'lunaraBookings') {
+        loadBookingHistory();
+    }
+});
+</script>
+
+</body>
+</html>
