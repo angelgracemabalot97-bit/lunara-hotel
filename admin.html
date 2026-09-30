@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lunara Hotel - Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; color: #333; }
         .admin-container { max-width: 1200px; margin: 0 auto; }
@@ -171,7 +172,7 @@
                 </tr>
             </thead>
             <tbody id="booking-table-body">
-                <!-- Data loaded dynamically -->
+                <!-- Data from localStorage will be loaded here dynamically -->
             </tbody>
         </table>
     </div>
@@ -241,16 +242,19 @@
 
         let totalRev = 0;
         let totalGuestsCount = 0;
+        let filteredCount = 0;
 
         bookings.forEach((item, index) => {
             const matchesSearch = item.name.toLowerCase().includes(searchValue) || item.email.toLowerCase().includes(searchValue);
             const matchesPayment = paymentFilter === 'all' || item.paymentMethod === paymentFilter;
 
+            // Compute statistics
             let numericPrice = parseInt(item.totalPrice.toString().replace(/[^0-9]/g, '')) || 0;
             totalRev += numericPrice;
             totalGuestsCount += parseInt(item.guests) || 1;
 
             if (matchesSearch && matchesPayment) {
+                filteredCount++;
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td><strong>${item.name}</strong></td>
@@ -259,7 +263,7 @@
                     <td>${item.guests}</td>
                     <td>${item.checkin} to ${item.checkout}</td>
                     <td>${item.nights || 1}</td>
-                    <td><strong style="color:#27ae60;">${typeof item.totalPrice === 'number' ? '₱' + item.totalPrice.toLocaleString() : item.totalPrice}</strong></td>
+                    <td><strong style="color:#27ae60;">${item.totalPrice}</strong></td>
                     <td>${item.paymentMethod}</td>
                     <td><span class="badge badge-confirmed">Confirmed</span></td>
                     <td><button onclick="deleteBooking(${index})" class="btn-admin btn-danger" style="padding: 3px 8px; font-size:11px;">Delete</button></td>
@@ -295,11 +299,9 @@
         }
     }
 
-    /* Room Status Toggle Feature */
     function toggleRoomStatus(button) {
         const row = button.closest('tr');
         const badge = row.querySelector('.badge');
-
         if (badge.classList.contains('badge-available')) {
             badge.classList.remove('badge-available');
             badge.classList.add('badge-occupied');
@@ -311,7 +313,6 @@
         }
     }
 
-    /* Modal Controls */
     function openWalkInModal() {
         document.getElementById('walkInModal').style.display = 'flex';
     }
@@ -320,15 +321,8 @@
         document.getElementById('walkInModal').style.display = 'none';
     }
 
-    /* Save Walk-in Booking */
     function saveWalkInBooking(e) {
         e.preventDefault();
-        
-        const checkin = new Date(document.getElementById('walk-checkin').value);
-        const checkout = new Date(document.getElementById('walk-checkout').value);
-        const timeDiff = checkout - checkin;
-        const nights = Math.max(Math.ceil(timeDiff / (1000 * 3600 * 24)), 1);
-
         const newBooking = {
             name: document.getElementById('walk-name').value,
             email: document.getElementById('walk-email').value,
@@ -336,34 +330,30 @@
             guests: document.getElementById('walk-guests').value,
             checkin: document.getElementById('walk-checkin').value,
             checkout: document.getElementById('walk-checkout').value,
-            nights: nights,
+            nights: 1,
             totalPrice: '₱' + parseInt(document.getElementById('walk-price').value).toLocaleString(),
-            paymentMethod: 'PayAtHotel'
+            paymentMethod: 'PayAtHotel',
+            dateBooked: new Date().toLocaleDateString()
         };
 
-        const bookings = getBookings();
+        let bookings = getBookings();
         bookings.push(newBooking);
         localStorage.setItem('lunaraBookings', JSON.stringify(bookings));
-
+        
         closeWalkInModal();
-        e.target.reset();
         renderBookings();
     }
 
-    /* Export Bookings as CSV */
     function exportData() {
         const bookings = getBookings();
         if (bookings.length === 0) {
-            alert('No booking data to export.');
+            alert('No data to export!');
             return;
         }
 
-        let csvContent = "data:text/csv;charset=utf-8,";
-        csvContent += "Guest Name,Email,Room,Guests,Check-in,Check-out,Nights,Total Paid,Payment Method\n";
-
+        let csvContent = "data:text/csv;charset=utf-8,Name,Email,Room,Guests,CheckIn,CheckOut,TotalPrice,PaymentMethod\n";
         bookings.forEach(b => {
-            let row = `"${b.name}","${b.email}","${b.room}","${b.guests}","${b.checkin}","${b.checkout}","${b.nights || 1}","${b.totalPrice}","${b.paymentMethod}"`;
-            csvContent += row + "\n";
+            csvContent += `"${b.name}","${b.email}","${b.room}","${b.guests}","${b.checkin}","${b.checkout}","${b.totalPrice}","${b.paymentMethod}"\n`;
         });
 
         const encodedUri = encodeURI(csvContent);
