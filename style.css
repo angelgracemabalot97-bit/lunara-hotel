@@ -1,40 +1,42 @@
 /* ==========================================
-   1. GLOBAL STYLES & RESET
+   1. RESET & BASE STYLES
    ========================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 :root {
-    --bg-color: #f8f9fa;
-    --text-color: #333333;
-    --card-bg: #ffffff;
-    --primary-color: #1b365d;
-    --primary-hover: #122440;
-    --accent-color: #c5a059;
-    --border-color: #e0e0e0;
-    --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --bg-primary: #f8f9fa;
+    --bg-surface: #ffffff;
+    --text-primary: #2c3e50;
+    --text-secondary: #666666;
+    --accent-gold: #c5a059;
+    --accent-gold-hover: #a8833d;
+    --border-color: #e2e8f0;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.12);
+    --radius: 12px;
 }
 
-/* DARK MODE VARIABLES */
 body.dark-theme {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --card-bg: #1e1e1e;
-    --primary-color: #c5a059;
-    --primary-hover: #e0b86c;
-    --accent-color: #1b365d;
-    --border-color: #333333;
-    --shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    --bg-primary: #0f172a;
+    --bg-surface: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-gold: #d4af37;
+    --accent-gold-hover: #f1c40f;
+    --border-color: #334155;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.6);
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     line-height: 1.6;
 }
 
@@ -44,11 +46,48 @@ body {
     padding: 40px 20px;
 }
 
+/* Tab Management */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Headings & Typography */
 h2 {
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 30px;
-    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    color: var(--text-primary);
+}
+
+/* Buttons */
+.btn {
+    background-color: var(--accent-gold);
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(197, 160, 89, 0.25);
+}
+
+.btn:hover {
+    background-color: var(--accent-gold-hover);
+    transform: translateY(-2px);
 }
 
 /* ==========================================
@@ -58,32 +97,48 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--card-bg);
-    padding: 15px 30px;
+    padding: 18px 5%;
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: var(--shadow);
-    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
 }
 
 .nav-links a {
-    color: var(--text-color);
     text-decoration: none;
-    margin-right: 20px;
+    color: var(--text-primary);
     font-weight: 600;
-    cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    position: relative;
+    padding: 5px 0;
 }
 
-.nav-links a:hover {
-    color: var(--primary-color);
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent-gold);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 .theme-toggle {
     background: transparent;
     border: 1px solid var(--border-color);
-    color: var(--text-color);
+    color: var(--text-primary);
     padding: 8px 16px;
     border-radius: 20px;
     cursor: pointer;
@@ -95,46 +150,32 @@ nav {
 }
 
 /* ==========================================
-   3. TAB / SECTION CONTROLS (Multi-Page Logic)
+   3. HERO SECTION (HOME PAGE)
    ========================================== */
-.tab-content {
-    display: none;
-    animation: fadeIn 0.4s ease-in-out;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ==========================================
-   4. HOME PAGE & HERO SECTION
-   ========================================== */
-#home {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+header#home {
+    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), 
                 url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1600') center/cover no-repeat;
-    height: 80vh;
+    height: 75vh;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     color: #ffffff;
+    border-radius: 0 0 var(--radius) var(--radius);
 }
 
 .hero-content h1 {
     font-size: 3.5rem;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     margin-bottom: 10px;
+    font-weight: 700;
 }
 
 .hero-content p {
     font-size: 1.3rem;
-    margin-bottom: 25px;
-    font-weight: 300;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    opacity: 0.9;
 }
 
 .hero-buttons {
@@ -143,78 +184,65 @@ nav {
     justify-content: center;
 }
 
-.btn {
-    background-color: var(--primary-color);
-    color: #ffffff;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: background 0.2s;
-}
-
-.btn:hover {
-    background-color: var(--primary-hover);
-}
-
 .hero-btn-secondary {
-    background-color: transparent;
+    background: transparent;
     border: 2px solid #ffffff;
     color: #ffffff;
 }
 
 .hero-btn-secondary:hover {
-    background-color: #ffffff;
-    color: #333333;
-}
-
-/* Featured Preview Card on Home */
-.featured-preview {
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    margin-top: -50px;
-    box-shadow: var(--shadow);
-    position: relative;
-    z-index: 10;
+    background: #ffffff;
+    color: #000000;
 }
 
 .about-highlights {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    text-align: center;
+    margin-top: 20px;
 }
 
-.about-highlights div {
-    padding: 20px;
+.about-highlights > div {
+    background-color: var(--bg-surface);
+    padding: 25px;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
 }
 
 .about-highlights h4 {
+    font-size: 1.2rem;
     margin-bottom: 8px;
-    font-size: 1.1rem;
-    color: var(--primary-color);
+    color: var(--accent-gold);
+}
+
+.about-highlights p {
+    color: var(--text-secondary);
 }
 
 /* ==========================================
-   5. FEATURES PAGE (Grid Layout)
+   4. FEATURES PAGE
    ========================================== */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    gap: 30px;
 }
 
 .feature-card {
-    background-color: var(--card-bg);
-    border-radius: 10px;
-    padding: 20px;
+    background-color: var(--bg-surface);
+    border-radius: var(--radius);
+    overflow: hidden;
     box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
+    padding: 20px;
     text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
 }
 
 .feature-img {
@@ -227,39 +255,53 @@ nav {
 
 .feature-card h3 {
     margin-bottom: 10px;
-    color: var(--primary-color);
+    color: var(--text-primary);
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
 }
 
 /* ==========================================
-   6. ROOMS PAGE (Filter & Room Cards)
+   5. ROOMS PAGE & FILTERS
    ========================================== */
 .filter-container {
     display: flex;
-    gap: 15px;
     flex-wrap: wrap;
+    gap: 15px;
     margin-bottom: 30px;
 }
 
 .filter-input, .filter-select {
-    flex: 1;
-    min-width: 200px;
-    padding: 10px 15px;
+    padding: 12px 16px;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
-    background-color: var(--card-bg);
-    color: var(--text-color);
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    border-radius: var(--radius);
     outline: none;
+    font-size: 0.95rem;
+}
+
+.filter-input {
+    flex: 2;
+    min-width: 200px;
+}
+
+.filter-select {
+    flex: 1;
+    min-width: 150px;
 }
 
 .rooms {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
 
 .room-card {
-    background-color: var(--card-bg);
-    border-radius: 10px;
+    background-color: var(--bg-surface);
+    border-radius: var(--radius);
     overflow: hidden;
     box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
@@ -270,9 +312,24 @@ nav {
 
 .room-card img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
 }
+
+.stock-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.stock-low { background-color: #e74c3c; }
+.stock-normal { background-color: #2ecc71; }
 
 .room-info {
     padding: 20px;
@@ -282,49 +339,30 @@ nav {
 }
 
 .room-info h3 {
-    margin-bottom: 8px;
-    font-size: 1.25rem;
+    margin-bottom: 10px;
 }
 
 .room-info p {
+    color: var(--text-secondary);
     font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 15px;
-    flex-grow: 1;
-}
-
-body.dark-theme .room-info p {
-    color: #aaa;
-}
-
-.price {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--primary-color) !important;
     margin-bottom: 15px;
 }
 
-.stock-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: #fff;
+.room-info .price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin-top: auto;
+    margin-bottom: 15px;
 }
-
-.stock-low { background-color: #e74c3c; }
-.stock-normal { background-color: #2ecc71; }
 
 /* ==========================================
-   7. BOOKING FORM & PAYMENT
+   6. BOOKING FORM & PAYMENTS
    ========================================== */
 .booking {
-    background-color: var(--card-bg);
+    background-color: var(--bg-surface);
     padding: 30px;
-    border-radius: 12px;
+    border-radius: var(--radius);
     box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
     max-width: 800px;
@@ -337,86 +375,85 @@ body.dark-theme .room-info p {
     gap: 20px;
 }
 
-.booking label {
+.form-grid label, .payment-details label {
     display: block;
-    font-size: 0.85rem;
     font-weight: 600;
     margin-bottom: 6px;
+    font-size: 0.9rem;
 }
 
-.booking input, .booking select {
+.form-grid input, .form-grid select, .payment-details input {
     width: 100%;
-    padding: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     outline: none;
 }
 
 .price-summary-box {
     display: none;
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--accent-gold);
     padding: 15px;
     border-radius: 8px;
-    margin-top: 20px;
-    text-align: right;
+    margin-top: 25px;
+    text-align: center;
 }
 
 .total-price-text {
     font-size: 1.2rem;
-    color: var(--primary-color);
+    color: var(--accent-gold);
     margin-top: 5px;
 }
 
-/* Payment Methods */
 .payment-section {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-color);
+    margin-top: 30px;
+}
+
+.payment-section h3 {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
 }
 
 .payment-options {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 15px;
-    margin-top: 15px;
-    flex-wrap: wrap;
 }
 
 .payment-card {
-    flex: 1;
-    min-width: 140px;
     border: 1px solid var(--border-color);
-    padding: 12px;
-    border-radius: 8px;
+    border-radius: var(--radius);
+    padding: 15px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    background-color: var(--bg-color);
+    background-color: var(--bg-primary);
 }
 
 .payment-card:hover {
-    border-color: var(--primary-color);
+    border-color: var(--accent-gold);
 }
 
 .pay-logo {
-    height: 24px;
+    height: 35px;
     object-fit: contain;
 }
 
 .payment-details {
     display: none;
-    margin-top: 15px;
-    background: var(--bg-color);
+    margin-top: 20px;
     padding: 15px;
+    background-color: var(--bg-primary);
     border-radius: 8px;
-    border: 1px solid var(--border-color);
 }
 
 /* ==========================================
-   8. MODALS (About & Official Receipt)
+   7. MODALS & RECEIPTS
    ========================================== */
 .modal {
     display: none;
@@ -425,7 +462,7 @@ body.dark-theme .room-info p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
     z-index: 2000;
@@ -433,25 +470,27 @@ body.dark-theme .room-info p {
 }
 
 .modal-content {
-    background-color: var(--card-bg);
+    background-color: var(--bg-surface);
     padding: 30px;
-    border-radius: 12px;
+    border-radius: var(--radius);
     max-width: 500px;
     width: 100%;
     position: relative;
     box-shadow: var(--shadow);
+    color: var(--text-primary);
 }
 
 .close-btn {
     position: absolute;
-    right: 20px;
     top: 15px;
-    font-size: 1.5rem;
+    right: 20px;
+    font-size: 1.8rem;
     cursor: pointer;
+    color: var(--text-secondary);
 }
 
 .receipt-card {
-    border-top: 5px solid var(--primary-color);
+    border-top: 5px solid var(--accent-gold);
 }
 
 .receipt-header {
@@ -460,52 +499,62 @@ body.dark-theme .room-info p {
 
 .status-badge {
     display: inline-block;
-    background: #2ecc71;
-    color: #fff;
-    padding: 2px 10px;
+    background-color: #2ecc71;
+    color: white;
+    padding: 4px 12px;
     border-radius: 12px;
     font-size: 0.8rem;
     margin-top: 5px;
 }
 
 .receipt-body p {
-    display: flex;
-    justify-content: space-between;
     margin-bottom: 8px;
     font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .receipt-total {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--accent-gold);
 }
 
 /* ==========================================
-   9. FOOTER
+   8. FOOTER
    ========================================== */
 footer {
     text-align: center;
     padding: 25px;
-    background-color: var(--card-bg);
+    background-color: var(--bg-surface);
     border-top: 1px solid var(--border-color);
-    margin-top: 40px;
+    margin-top: 50px;
     font-size: 0.9rem;
-    color: #666;
+    color: var(--text-secondary);
 }
 
-body.dark-theme footer {
-    color: #aaa;
-}
-
-/* Responsive Fixes */
+/* ==========================================
+   9. RESPONSIVE DESIGN
+   ========================================== */
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .hero-content h1 {
-        font-size: 2.2rem;
+        font-size: 2.3rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .filter-container {
+        flex-direction: column;
     }
 }
