@@ -240,7 +240,6 @@ header h1 {
     margin: 0 auto;
 }
 
-/* STATS CARDS */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -270,7 +269,6 @@ header h1 {
     margin: 0;
 }
 
-/* TABLE STYLING */
 .table-container {
     background: white;
     padding: 20px;
@@ -314,7 +312,6 @@ table tbody tr:hover {
     background-color: #f8f9fa;
 }
 
-/* BADGES & ACTION BUTTONS */
 .badge {
     padding: 5px 10px;
     border-radius: 12px;
@@ -326,10 +323,6 @@ table tbody tr:hover {
 .badge-pending { 
     background-color: var(--warning); 
     color: #333; 
-}
-
-.badge-confirmed { 
-    background-color: var(--success); 
 }
 
 .btn-action {
