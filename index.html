@@ -10,42 +10,39 @@
 </head>
 <body>
 
+<!-- NAVIGATION BAR -->
 <nav>
     <div class="nav-links">
-        <a href="#home" onclick="showTab('home-page')">Home</a>
-        <a href="#features" onclick="showTab('features-page')">Features</a>
-        <a href="#rooms" onclick="showTab('rooms-page')">Rooms</a>
-        <a href="#booking" onclick="showTab('booking-page')">Book Now</a>
-        <a href="#contact">Contact</a>
+        <a href="#home-page" onclick="showTab('home-page')">Home</a>
+        <a href="#features-page" onclick="showTab('features-page')">Features</a>
+        <a href="#rooms-page" onclick="showTab('rooms-page')">Rooms</a>
+        <a href="#booking-page" onclick="showTab('booking-page')">Book Now</a>
+        <a href="#contact-page" onclick="showTab('contact-page')">Contact Us</a>
     </div>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Dark Mode</button>
 </nav>
 
+<!-- 1. HOME PAGE SECTION -->
 <div id="home-page" class="tab-content active">
     <header id="home">
         <div class="hero-content">
             <h1>LUNARA HOTEL</h1>
             <p>Experience Luxury, Comfort, and Serenity</p>
             <div class="hero-buttons">
-                <button onclick="showTab('features-page')" class="btn hero-btn">Get Started</button>
+                <button onclick="showTab('booking-page')" class="btn hero-btn">Book Your Stay</button>
                 <button onclick="openAboutModal()" class="btn hero-btn-secondary">About Us</button>
             </div>
         </div>
     </header>
-</div>
 
-<div id="aboutModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeAboutModal()">&times;</span>
-        <h2>About Lunara Hotel</h2>
-        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
-        <p>Welcome to <strong>Lunara Hotel</strong>, your sanctuary of modern elegance and world-class hospitality in Quezon City.</p>
-        <p style="margin-top: 10px;">Founded with the vision to blend luxury with peace of mind, Lunara provides an unforgettable escape from the busy city life. Whether you are here for a relaxed staycation, a business conference, or fine dining, our dedicated staff ensures every moment is tailored to your comfort.</p>
-        
+    <!-- FEATURED HIGHLIGHTS ON HOME -->
+    <section class="container featured-preview">
+        <h2>Welcome to Luxury</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">Discover the ultimate sanctuary in the heart of Quezon City.</p>
         <div class="about-highlights">
             <div>
                 <h4>🏆 5-Star Luxury</h4>
-                <p>Top-rated amenities and suites</p>
+                <p>Top-rated amenities and accommodations</p>
             </div>
             <div>
                 <h4>🌱 Eco-Friendly</h4>
@@ -56,35 +53,15 @@
                 <p>Round-the-clock butler support</p>
             </div>
         </div>
-    </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <button onclick="showTab('features-page')" class="btn">Explore All Amenities &rarr;</button>
+        </div>
+    </section>
 </div>
 
-<div id="receiptModal" class="modal">
-    <div class="modal-content receipt-card">
-        <div class="receipt-header">
-            <h2>LUNARA HOTEL</h2>
-            <p>Official Booking Receipt</p>
-            <span class="status-badge">Confirmed</span>
-        </div>
-        <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
-        <div class="receipt-body">
-            <p><strong>Guest Name:</strong> <span id="rec-name"></span></p>
-            <p><strong>Email Address:</strong> <span id="rec-email"></span></p>
-            <p><strong>Room Type:</strong> <span id="rec-room"></span></p>
-            <p><strong>Number of Guests:</strong> <span id="rec-guests"></span></p>
-            <p><strong>Check-in:</strong> <span id="rec-checkin"></span> at <span id="rec-timein"></span></p>
-            <p><strong>Check-out:</strong> <span id="rec-checkout"></span> at <span id="rec-timeout"></span></p>
-            <p><strong>Total Nights:</strong> <span id="rec-nights"></span> night(s)</p>
-            <p><strong>Payment Method:</strong> <span id="rec-payment"></span></p>
-            <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
-            <p class="receipt-total">Total Amount Paid: <strong id="rec-total">₱0</strong></p>
-        </div>
-        <button onclick="closeReceiptModal()" class="btn" style="width: 100%; margin-top: 20px;">Done & Return Home</button>
-    </div>
-</div>
-
+<!-- 2. FEATURES PAGE SECTION -->
 <div id="features-page" class="tab-content container">
-    <h2>Why Choose Lunara Hotel</h2>
+    <h2>Hotel Features & Amenities</h2>
     <div class="features-grid">
         <div class="feature-card">
             <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=300" alt="Infinity Pool" class="feature-img">
@@ -118,12 +95,13 @@
         </div>
     </div>
     <div style="text-align: center; margin-top: 40px;">
-        <button onclick="showTab('rooms-page')" class="btn" style="padding: 12px 30px; font-size: 1.1em;">Explore Our Rooms</button>
+        <button onclick="showTab('rooms-page')" class="btn" style="padding: 12px 30px; font-size: 1.1em;">View Our Rooms</button>
     </div>
 </div>
 
+<!-- 3. ROOMS PAGE SECTION -->
 <div id="rooms-page" class="tab-content container">
-    <h2>Our Room Designs</h2>
+    <h2>Our Accommodations</h2>
 
     <div class="filter-container">
         <input type="text" id="searchInput" onkeyup="filterRooms()" placeholder="Search room by name..." class="filter-input">
@@ -188,8 +166,9 @@
     </div>
 </div>
 
+<!-- 4. BOOKING PAGE SECTION -->
 <div id="booking-page" class="tab-content container">
-    <h2>Book Your Stay at Lunara Hotel</h2>
+    <h2>Book Your Stay</h2>
     <div class="booking">
         <form id="bookingForm" onsubmit="bookRoom(event)">
             <div class="form-grid">
@@ -282,6 +261,52 @@
             <button type="submit" class="btn" style="margin-top: 25px; width: 100%; font-size: 1.1em;">Confirm Reservation</button>
             <button type="button" onclick="showTab('home-page')" class="btn" style="margin-top: 10px; width: 100%; background: #666;">Back to Home</button>
         </form>
+    </div>
+</div>
+
+<!-- 5. CONTACT US PAGE SECTION -->
+<div id="contact-page" class="tab-content container">
+    <h2>Contact Us</h2>
+    <div style="text-align: center; max-width: 600px; margin: 0 auto; line-height: 1.8;">
+        <p><strong>Location:</strong> Quezon City, Metro Manila, Philippines</p>
+        <p><strong>Hotline:</strong> 0917-123-4567 / (02) 8123-4567</p>
+        <p><strong>Email:</strong> reservations@lunarahotel.com</p>
+        <p><strong>Front Desk Hours:</strong> 24/7 Available</p>
+    </div>
+</div>
+
+<!-- MODALS -->
+<div id="aboutModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeAboutModal()">&times;</span>
+        <h2>About Lunara Hotel</h2>
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+        <p>Welcome to <strong>Lunara Hotel</strong>, your sanctuary of modern elegance and world-class hospitality in Quezon City.</p>
+        <p style="margin-top: 10px;">Founded with the vision to blend luxury with peace of mind, Lunara provides an unforgettable escape from the busy city life. Whether you are here for a relaxed staycation, a business conference, or fine dining, our dedicated staff ensures every moment is tailored to your comfort.</p>
+    </div>
+</div>
+
+<div id="receiptModal" class="modal">
+    <div class="modal-content receipt-card">
+        <div class="receipt-header">
+            <h2>LUNARA HOTEL</h2>
+            <p>Official Booking Receipt</p>
+            <span class="status-badge">Confirmed</span>
+        </div>
+        <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
+        <div class="receipt-body">
+            <p><strong>Guest Name:</strong> <span id="rec-name"></span></p>
+            <p><strong>Email Address:</strong> <span id="rec-email"></span></p>
+            <p><strong>Room Type:</strong> <span id="rec-room"></span></p>
+            <p><strong>Number of Guests:</strong> <span id="rec-guests"></span></p>
+            <p><strong>Check-in:</strong> <span id="rec-checkin"></span> at <span id="rec-timein"></span></p>
+            <p><strong>Check-out:</strong> <span id="rec-checkout"></span> at <span id="rec-timeout"></span></p>
+            <p><strong>Total Nights:</strong> <span id="rec-nights"></span> night(s)</p>
+            <p><strong>Payment Method:</strong> <span id="rec-payment"></span></p>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
+            <p class="receipt-total">Total Amount Paid: <strong id="rec-total">₱0</strong></p>
+        </div>
+        <button onclick="closeReceiptModal()" class="btn" style="width: 100%; margin-top: 20px;">Done & Return Home</button>
     </div>
 </div>
 
@@ -459,7 +484,6 @@ function bookRoom(e) {
     document.getElementById('rec-payment').innerText = bookingData.paymentMethod;
     document.getElementById('rec-total').innerText = bookingData.totalPrice;
 
-    // Isina-save sa LocalStorage para mabasa ng admin.html
     let history = JSON.parse(localStorage.getItem('lunaraBookings')) || [];
     history.push(bookingData);
     localStorage.setItem('lunaraBookings', JSON.stringify(history));
