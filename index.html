@@ -3,398 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lunara Hotel - Admin Dashboard</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; color: #333; }
-        .admin-container { max-width: 1200px; margin: 0 auto; }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .admin-header h1 { margin: 0; color: #1a252f; font-size: 24px; }
-        
-        /* KPI Cards */
-        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .kpi-card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 5px solid #3498db; }
-        .kpi-card h3 { margin: 0 0 10px 0; font-size: 14px; color: #7f8c8d; text-transform: uppercase; }
-        .kpi-card .value { font-size: 24px; font-weight: bold; color: #2c3e50; }
-
-        /* Sections */
-        .dashboard-section { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .section-header h2 { margin: 0; font-size: 18px; color: #2c3e50; }
-
-        /* Controls / Filters */
-        .controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
-        .controls input, .controls select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; outline: none; }
-        
-        /* Table Styling */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; font-size: 13px; }
-        th { background: #f8f9fa; color: #2c3e50; font-weight: 600; }
-        tr:hover { background: #f9f9f9; }
-
-        /* Status Badges */
-        .badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
-        .badge-confirmed { background: #e8f8f5; color: #27ae60; }
-        .badge-available { background: #eaf2f8; color: #2980b9; }
-        .badge-occupied { background: #fdedec; color: #c0392b; }
-
-        /* Buttons */
-        .btn-admin { background: #3498db; color: #fff; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: 500; }
-        .btn-admin:hover { background: #2980b9; }
-        .btn-danger { background: #e74c3c; }
-        .btn-danger:hover { background: #c0392b; }
-        .btn-success { background: #2ecc71; }
-        .btn-success:hover { background: #27ae60; }
-
-        /* Modal Form */
-        .admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
-        .admin-modal-content { background: #fff; padding: 25px; border-radius: 8px; width: 420px; max-width: 90%; }
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; }
-        .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        .date-time-group { display: flex; gap: 8px; }
-        .date-time-group input[type="date"] { flex: 2; }
-        .date-time-group input[type="time"] { flex: 1; }
-    </style>
+    <title>Lunara Hotel - Luxury Hotel & Booking in Quezon City</title>
+    <meta name="description" content="Welcome to Lunara Hotel. Experience luxury, comfort, and serenity. Book your stay, rooms, and suites online.">
+    <meta name="keywords" content="Lunara Hotel, Lunara Hotel Quezon City, Lunara Booking, Lunara Hotel Reservation">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="admin-container">
-    
-    <!-- HEADER -->
-    <div class="admin-header">
-        <div>
-            <h1>Lunara Hotel Admin Dashboard</h1>
-            <span style="font-size: 12px; color: #7f8c8d;">Management & Operations Panel (Connected to XAMPP MySQL)</span>
-        </div>
-        <div>
-            <button onclick="openWalkInModal()" class="btn-admin btn-success">+ Walk-in Booking</button>
-            <button onclick="exportData()" class="btn-admin">📥 Export CSV</button>
-        </div>
+<nav>
+    <div class="nav-links">
+        <a href="#home" onclick="showTab('home-page')">Home</a>
+        <a href="#features" onclick="showTab('features-page')">Features</a>
+        <a href="#rooms" onclick="showTab('rooms-page')">Rooms</a>
+        <a href="#booking" onclick="showTab('booking-page')">Book Now</a>
+        <a href="#contact">Contact</a>
     </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Dark Mode</button>
+</nav>
 
-    <!-- 1. KPI CARDS / QUICK STATS -->
-    <div class="kpi-grid">
-        <div class="kpi-card" style="border-color: #3498db;">
-            <h3>Total Bookings</h3>
-            <div class="value" id="kpi-total">0</div>
+<div id="home-page" class="tab-content active">
+    <header id="home">
+        <div class="hero-content">
+            <h1>LUNARA HOTEL</h1>
+            <p>Experience Luxury, Comfort, and Serenity</p>
+            <div class="hero-buttons">
+                <button onclick="showTab('features-page')" class="btn hero-btn">Get Started</button>
+                <button onclick="openAboutModal()" class="btn hero-btn-secondary">About Us</button>
+            </div>
         </div>
-        <div class="kpi-card" style="border-color: #2ecc71;">
-            <h3>Total Revenue</h3>
-            <div class="value" id="kpi-revenue">₱0</div>
-        </div>
-        <div class="kpi-card" style="border-color: #f1c40f;">
-            <h3>Active Guests</h3>
-            <div class="value" id="kpi-guests">0</div>
-        </div>
-        <div class="kpi-card" style="border-color: #e74c3c;">
-            <h3>Occupancy Status</h3>
-            <div class="value" id="kpi-occupancy">0%</div>
-        </div>
-    </div>
-
-    <!-- 2. ROOM MANAGEMENT STATUS -->
-    <div class="dashboard-section">
-        <div class="section-header">
-            <h2>Room Availability & Status</h2>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Room Type</th>
-                    <th>Price / Night</th>
-                    <th>Capacity</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="room-status-list">
-                <!-- Dynamic Rooms Loaded from Backend -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- 3. BOOKING RECORDS TABLE -->
-    <div class="dashboard-section">
-        <div class="section-header">
-            <h2>Guest Reservations & Schedule</h2>
-        </div>
-        
-        <!-- SEARCH & FILTER BAR -->
-        <div class="controls">
-            <input type="text" id="adminSearch" onkeyup="renderBookings()" placeholder="Search guest name or email...">
-            <select id="paymentFilter" onchange="renderBookings()">
-                <option value="all">All Payment Methods</option>
-                <option value="GCash">GCash</option>
-                <option value="Card">Credit / Debit Card</option>
-                <option value="PayAtHotel">Pay at Hotel</option>
-            </select>
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Guest Name</th>
-                    <th>Contact / Email</th>
-                    <th>Room</th>
-                    <th>Check-in (Date & Time)</th>
-                    <th>Check-out (Date & Time)</th>
-                    <th>Nights</th>
-                    <th>Total Paid</th>
-                    <th>Payment</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="booking-table-body">
-                <!-- Loaded dynamically from XAMPP Backend -->
-            </tbody>
-        </table>
-    </div>
-
+    </header>
 </div>
 
-<!-- WALK-IN BOOKING MODAL -->
-<div id="walkInModal" class="admin-modal">
-    <div class="admin-modal-content">
-        <h3>Add Manual Walk-in Booking</h3>
-        <form onsubmit="saveWalkInBooking(event)">
-            <div class="form-group">
-                <label>Guest Full Name</label>
-                <input type="text" id="walk-name" required>
+<div id="aboutModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeAboutModal()">&times;</span>
+        <h2>About Lunara Hotel</h2>
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+        <p>Welcome to <strong>Lunara Hotel</strong>, your sanctuary of modern elegance and world-class hospitality in Quezon City.</p>
+        <p style="margin-top: 10px;">Founded with the vision to blend luxury with peace of mind, Lunara provides an unforgettable escape from the busy city life. Whether you are here for a relaxed staycation, a business conference, or fine dining, our dedicated staff ensures every moment is tailored to your comfort.</p>
+        
+        <div class="about-highlights">
+            <div>
+                <h4>🏆 5-Star Luxury</h4>
+                <p>Top-rated amenities and suites</p>
             </div>
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="walk-email" required>
+            <div>
+                <h4>🌱 Eco-Friendly</h4>
+                <p>Sustainable hospitality practices</p>
             </div>
-            <div class="form-group">
-                <label>Room Type</label>
-                <select id="walk-room" required>
-                    <option value="1">Deluxe Room (₱4,500)</option>
-                    <option value="2">Executive Suite (₱8,900)</option>
-                    <option value="3">Family Room (₱6,200)</option>
-                    <option value="4">Presidential Suite (₱18,000)</option>
-                </select>
+            <div>
+                <h4>🛎️ 24/7 Service</h4>
+                <p>Round-the-clock butler support</p>
             </div>
-            
-            <!-- CHECK-IN DATE & TIME -->
-            <div class="form-group">
-                <label>Check-in Date & Time</label>
-                <div class="date-time-group">
-                    <input type="date" id="walk-checkin" required>
-                    <input type="time" id="walk-checkin-time" value="14:00" required>
+        </div>
+    </div>
+</div>
+
+<div id="receiptModal" class="modal">
+    <div class="modal-content receipt-card">
+        <div class="receipt-header">
+            <h2>LUNARA HOTEL</h2>
+            <p>Official Booking Receipt</p>
+            <span class="status-badge">Confirmed</span>
+        </div>
+        <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
+        <div class="receipt-body">
+            <p><strong>Guest Name:</strong> <span id="rec-name"></span></p>
+            <p><strong>Email Address:</strong> <span id="rec-email"></span></p>
+            <p><strong>Room Type:</strong> <span id="rec-room"></span></p>
+            <p><strong>Number of Guests:</strong> <span id="rec-guests"></span></p>
+            <p><strong>Check-in:</strong> <span id="rec-checkin"></span> at <span id="rec-timein"></span></p>
+            <p><strong>Check-out:</strong> <span id="rec-checkout"></span> at <span id="rec-timeout"></span></p>
+            <p><strong>Total Nights:</strong> <span id="rec-nights"></span> night(s)</p>
+            <p><strong>Payment Method:</strong> <span id="rec-payment"></span></p>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
+            <p class="receipt-total">Total Amount Paid: <strong id="rec-total">₱0</strong></p>
+        </div>
+        <button onclick="closeReceiptModal()" class="btn" style="width: 100%; margin-top: 20px;">Done & Return Home</button>
+    </div>
+</div>
+
+<div id="features-page" class="tab-content container">
+    <h2>Why Choose Lunara Hotel</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=300" alt="Infinity Pool" class="feature-img">
+            <h3>Infinity Pool</h3>
+            <p>Relax and unwind in our temperature-controlled outdoor swimming pool with scenic views.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=300" alt="Fine Dining" class="feature-img">
+            <h3>Fine Dining</h3>
+            <p>Savor world-class international cuisines prepared by our top executive chefs.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=300" alt="Wellness Spa" class="feature-img">
+            <h3>Wellness Spa & Fitness</h3>
+            <p>Rejuvenate your body and mind with our full-service spa treatments and modern gym.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=300" alt="High-Speed Wi-Fi" class="feature-img">
+            <h3>High-Speed Wi-Fi</h3>
+            <p>Stay connected with complimentary high-speed fiber internet throughout the property.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=300" alt="Rooftop Lounge" class="feature-img">
+            <h3>Rooftop Lounge</h3>
+            <p>Enjoy handcrafted cocktails and live acoustics with a panoramic city skyline view.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=300" alt="Butler Service" class="feature-img">
+            <h3>24/7 Butler Service</h3>
+            <p>Experience personalized concierge and round-the-clock room assistance for your comfort.</p>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 40px;">
+        <button onclick="showTab('rooms-page')" class="btn" style="padding: 12px 30px; font-size: 1.1em;">Explore Our Rooms</button>
+    </div>
+</div>
+
+<div id="rooms-page" class="tab-content container">
+    <h2>Our Room Designs</h2>
+
+    <div class="filter-container">
+        <input type="text" id="searchInput" onkeyup="filterRooms()" placeholder="Search room by name..." class="filter-input">
+        <select id="priceFilter" onchange="filterRooms()" class="filter-select">
+            <option value="all">All Prices</option>
+            <option value="5000">₱5,000 and below</option>
+            <option value="10000">₱10,000 and below</option>
+            <option value="10001">Above ₱10,000</option>
+        </select>
+        <select id="capacityFilter" onchange="filterRooms()" class="filter-select">
+            <option value="all">All Guest Capacities</option>
+            <option value="2">Up to 2 Guests</option>
+            <option value="4">Up to 4 Guests</option>
+            <option value="6">Up to 6 Guests</option>
+        </select>
+    </div>
+
+    <div class="rooms" id="roomsList">
+        <div class="room-card" data-name="Deluxe Room" data-price="4500" data-capacity="2">
+            <span class="stock-badge stock-low">Only 2 rooms left!</span>
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600" alt="Deluxe Room">
+            <div class="room-info">
+                <h3>Deluxe Room</h3>
+                <p>Modern design with king bed, city view, and free breakfast. (Max: 2 Guests)</p>
+                <p class="price">₱4,500 / night</p>
+                <button onclick="showTab('booking-page', 'Deluxe')" class="btn">Book Now</button>
+            </div>
+        </div>
+
+        <div class="room-card" data-name="Executive Suite" data-price="8900" data-capacity="3">
+            <span class="stock-badge stock-normal">4 rooms available</span>
+            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600" alt="Executive Suite">
+            <div class="room-info">
+                <h3>Executive Suite</h3>
+                <p>Spacious suite with living area, jacuzzi, and balcony. (Max: 3 Guests)</p>
+                <p class="price">₱8,900 / night</p>
+                <button onclick="showTab('booking-page', 'Executive')" class="btn">Book Now</button>
+            </div>
+        </div>
+
+        <div class="room-card" data-name="Family Room" data-price="6200" data-capacity="4">
+            <span class="stock-badge stock-normal">5 rooms available</span>
+            <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600" alt="Family Room">
+            <div class="room-info">
+                <h3>Family Room</h3>
+                <p>2 Queen beds, perfect for families. Kids stay free! (Max: 4 Guests)</p>
+                <p class="price">₱6,200 / night</p>
+                <button onclick="showTab('booking-page', 'Family')" class="btn">Book Now</button>
+            </div>
+        </div>
+
+        <div class="room-card" data-name="Presidential Suite" data-price="18000" data-capacity="6">
+            <span class="stock-badge stock-low">Only 1 room left!</span>
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800" alt="Presidential Suite">
+            <div class="room-info">
+                <h3>Presidential Suite</h3>
+                <p>Ultimate luxury with private pool and butler service. (Max: 6 Guests)</p>
+                <p class="price">₱18,000 / night</p>
+                <button onclick="showTab('booking-page', 'Presidential')" class="btn">Book Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="booking-page" class="tab-content container">
+    <h2>Book Your Stay at Lunara Hotel</h2>
+    <div class="booking">
+        <form id="bookingForm" onsubmit="bookRoom(event)">
+            <div class="form-grid">
+                <div>
+                    <label>Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div>
+                    <label>Check-in Date</label>
+                    <input type="date" id="checkin" onchange="calculatePrice()" required>
+                </div>
+                <div>
+                    <label>Time In (Check-in Time)</label>
+                    <input type="time" id="timein" value="14:00" required>
+                </div>
+                <div>
+                    <label>Check-out Date</label>
+                    <input type="date" id="checkout" onchange="calculatePrice()" required>
+                </div>
+                <div>
+                    <label>Time Out (Check-out Time)</label>
+                    <input type="time" id="timeout" value="12:00" required>
+                </div>
+                <div>
+                    <label>Room Type</label>
+                    <select id="roomtype" onchange="calculatePrice()" required>
+                        <option value="">Select Room</option>
+                        <option value="Deluxe">Deluxe Room - ₱4,500</option>
+                        <option value="Executive">Executive Suite - ₱8,900</option>
+                        <option value="Family">Family Room - ₱6,200</option>
+                        <option value="Presidential">Presidential Suite - ₱18,000</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Guests</label>
+                    <input type="number" id="guests" min="1" max="6" required>
                 </div>
             </div>
 
-            <!-- CHECK-OUT DATE & TIME -->
-            <div class="form-group">
-                <label>Check-out Date & Time</label>
-                <div class="date-time-group">
-                    <input type="date" id="walk-checkout" required>
-                    <input type="time" id="walk-checkout-time" value="12:00" required>
+            <div id="price-summary" class="price-summary-box">
+                <p>Total Nights: <strong id="total-nights">0</strong> night(s)</p>
+                <p class="total-price-text">
+                    Total Price: <strong id="total-price">₱0</strong>
+                </p>
+            </div>
+
+            <div class="payment-section">
+                <h3>Payment Method</h3>
+                <div class="payment-options">
+                    <label class="payment-card">
+                        <input type="radio" name="payment" value="GCash" onchange="togglePaymentFields()" required>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/GCash_logo.svg" alt="GCash Logo" class="pay-logo">
+                        <span>GCash</span>
+                    </label>
+                    <label class="payment-card">
+                        <input type="radio" name="payment" value="Card" onchange="togglePaymentFields()">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Card Logo" class="pay-logo">
+                        <span>Credit / Debit Card</span>
+                    </label>
+                    <label class="payment-card">
+                        <input type="radio" name="payment" value="PayAtHotel" onchange="togglePaymentFields()">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2535/2535528.png" alt="Pay at Hotel Logo" class="pay-logo">
+                        <span>Pay at Hotel</span>
+                    </label>
+                </div>
+
+                <div id="gcash-details" class="payment-details">
+                    <label>GCash Mobile Number</label>
+                    <input type="text" id="gcash-num" placeholder="0917XXXXXXX">
+                </div>
+
+                <div id="card-details" class="payment-details">
+                    <div class="form-grid">
+                        <div>
+                            <label>Card Number</label>
+                            <input type="text" id="card-num" placeholder="1234 5678 9101 1121">
+                        </div>
+                        <div>
+                            <label>Expiry Date</label>
+                            <input type="text" id="card-exp" placeholder="MM/YY">
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Total Price (₱)</label>
-                <input type="number" id="walk-price" placeholder="4500" required>
-            </div>
-            <button type="submit" class="btn-admin btn-success" style="width:100%; margin-top:10px;">Save Reservation</button>
-            <button type="button" onclick="closeWalkInModal()" class="btn-admin btn-danger" style="width:100%; margin-top:5px;">Cancel</button>
+            <button type="submit" class="btn" style="margin-top: 25px; width: 100%; font-size: 1.1em;">Confirm Reservation</button>
+            <button type="button" onclick="showTab('home-page')" class="btn" style="margin-top: 10px; width: 100%; background: #666;">Back to Home</button>
         </form>
     </div>
 </div>
 
+<footer id="contact">
+    <p>© 2026 Lunara Hotel | Quezon City, Philippines | Contact: 0917-123-4567</p>
+</footer>
+
 <script>
-    const API_BASE_URL = 'http://localhost:3000/api/v1';
-    let globalBookingsData = [];
+const roomPrices = {
+    'Deluxe': 4500,
+    'Executive': 8900,
+    'Family': 6200,
+    'Presidential': 18000
+};
 
-    document.addEventListener('DOMContentLoaded', () => {
-        fetchRooms();
-        fetchBookings();
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('checkin').setAttribute('min', today);
+    document.getElementById('checkout').setAttribute('min', today);
+});
 
-    // 1. KUNIN ANG MGA KWARTO MULA SA BACKEND
-    async function fetchRooms() {
-        try {
-            const res = await fetch(`${API_BASE_URL}/rooms`);
-            const rooms = await res.json();
-            const tbody = document.getElementById('room-status-list');
-            tbody.innerHTML = '';
-
-            rooms.forEach(room => {
-                const isAvailable = room.status === 'Available';
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${room.room_type}</td>
-                    <td>₱${parseFloat(room.price_per_night).toLocaleString()}</td>
-                    <td>${room.capacity} Guests</td>
-                    <td><span class="badge ${isAvailable ? 'badge-available' : 'badge-occupied'}">${room.status}</span></td>
-                    <td><button onclick="toggleRoomStatus(${room.room_id}, '${room.status}')" class="btn-admin">Change Status</button></td>
-                `;
-                tbody.appendChild(row);
-            });
-        } catch (error) {
-            console.error('Error fetching rooms:', error);
-        }
+document.getElementById('checkin').addEventListener('change', function() {
+    const checkinDate = this.value;
+    const checkoutInput = document.getElementById('checkout');
+    checkoutInput.setAttribute('min', checkinDate);
+    if (checkoutInput.value && checkoutInput.value <= checkinDate) {
+        checkoutInput.value = '';
     }
+});
 
-    // 2. KUNIN ANG BOOKINGS MULA SA BACKEND
-    async function fetchBookings() {
-        try {
-            const res = await fetch(`${API_BASE_URL}/bookings`);
-            globalBookingsData = await res.json();
-            renderBookings();
-        } catch (error) {
-            console.error('Error fetching bookings:', error);
-        }
-    }
+function calculatePrice() {
+    const checkinVal = document.getElementById('checkin').value;
+    const checkoutVal = document.getElementById('checkout').value;
+    const roomType = document.getElementById('roomtype').value;
+    const summaryBox = document.getElementById('price-summary');
 
-    // 3. I-RENDER ANG BOOKINGS SA TABLE AT I-UPDATE ANG KPI
-    function renderBookings() {
-        const tbody = document.getElementById('booking-table-body');
-        const searchValue = document.getElementById('adminSearch').value.toLowerCase();
-        const paymentFilter = document.getElementById('paymentFilter').value;
+    if (checkinVal && checkoutVal && roomType) {
+        const checkinDate = new Date(checkinVal);
+        const checkoutDate = new Date(checkoutVal);
 
-        tbody.innerHTML = '';
+        const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
+        const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-        let totalRev = 0;
+        if (nights > 0) {
+            const pricePerNight = roomPrices[roomType];
+            const totalPrice = pricePerNight * nights;
 
-        globalBookingsData.forEach(item => {
-            const matchesSearch = item.guest_name.toLowerCase().includes(searchValue) || item.guest_email.toLowerCase().includes(searchValue);
-            const matchesPayment = paymentFilter === 'all' || item.payment_method === paymentFilter;
-
-            totalRev += parseFloat(item.total_price) || 0;
-
-            if (matchesSearch && matchesPayment) {
-                // Formatting Date & Time
-                const formattedCheckInDate = item.check_in_date ? item.check_in_date.split('T')[0] : '';
-                const formattedCheckOutDate = item.check_out_date ? item.check_out_date.split('T')[0] : '';
-
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>${item.guest_name}</strong></td>
-                    <td>${item.guest_email}</td>
-                    <td>${item.room_type}</td>
-                    <td>📅 ${formattedCheckInDate} <br> ⏰ <strong>${item.check_in_time || '14:00'}</strong></td>
-                    <td>📅 ${formattedCheckOutDate} <br> ⏰ <strong>${item.check_out_time || '12:00'}</strong></td>
-                    <td>${item.total_nights || 1}</td>
-                    <td><strong style="color:#27ae60;">₱${parseFloat(item.total_price).toLocaleString()}</strong></td>
-                    <td>${item.payment_method}</td>
-                    <td><span class="badge badge-confirmed">${item.status}</span></td>
-                    <td><button onclick="deleteBooking(${item.booking_id})" class="btn-admin btn-danger" style="padding: 3px 8px; font-size:11px;">Delete</button></td>
-                `;
-                tbody.appendChild(row);
-            }
-        });
-
-        if (tbody.innerHTML === '') {
-            tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; color:#999;">No booking records found.</td></tr>`;
-        }
-
-        // Update KPI Stats
-        document.getElementById('kpi-total').innerText = globalBookingsData.length;
-        document.getElementById('kpi-revenue').innerText = '₱' + totalRev.toLocaleString();
-        document.getElementById('kpi-guests').innerText = globalBookingsData.length;
-        document.getElementById('kpi-occupancy').innerText = Math.min(globalBookingsData.length * 25, 100) + '%';
-    }
-
-    // 4. SAVE WALK-IN BOOKING NA MAY DATE & TIME
-    async function saveWalkInBooking(e) {
-        e.preventDefault();
-
-        const checkinDate = new Date(document.getElementById('walk-checkin').value);
-        const checkoutDate = new Date(document.getElementById('walk-checkout').value);
-        const timeDiff = checkoutDate - checkinDate;
-        const nights = Math.max(Math.ceil(timeDiff / (1000 * 3600 * 24)), 1);
-
-        const newBooking = {
-            guest_name: document.getElementById('walk-name').value,
-            guest_email: document.getElementById('walk-email').value,
-            room_id: parseInt(document.getElementById('walk-room').value),
-            check_in_date: document.getElementById('walk-checkin').value,
-            check_in_time: document.getElementById('walk-checkin-time').value,   // e.g. "14:00"
-            check_out_date: document.getElementById('walk-checkout').value,
-            check_out_time: document.getElementById('walk-checkout-time').value, // e.g. "12:00"
-            total_nights: nights,
-            total_price: parseFloat(document.getElementById('walk-price').value),
-            payment_method: 'PayAtHotel'
-        };
-
-        try {
-            const res = await fetch(`${API_BASE_URL}/bookings`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newBooking)
-            });
-
-            const data = await res.json();
-            alert(data.message);
+            document.getElementById('total-nights').innerText = nights;
+            document.getElementById('total-price').innerText = '₱' + totalPrice.toLocaleString();
             
-            closeWalkInModal();
-            e.target.reset();
-            fetchBookings();
-        } catch (error) {
-            console.error('Error saving walk-in booking:', error);
-            alert('Failed to save booking. Please check server connection.');
+            summaryBox.style.display = 'block';
+        } else {
+            summaryBox.style.display = 'none';
         }
+    } else {
+        summaryBox.style.display = 'none';
     }
+}
 
-    // 5. TOGGLE ROOM STATUS VIA BACKEND
-    async function toggleRoomStatus(roomId, currentStatus) {
-        const newStatus = currentStatus === 'Available' ? 'Occupied' : 'Available';
-        try {
-            await fetch(`${API_BASE_URL}/rooms/${roomId}/status`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status: newStatus })
-            });
-            fetchRooms();
-        } catch (error) {
-            console.error('Error updating status:', error);
-        }
-    }
+function filterRooms() {
+    const searchVal = document.getElementById('searchInput').value.toLowerCase();
+    const priceVal = document.getElementById('priceFilter').value;
+    const capacityVal = document.getElementById('capacityFilter').value;
+    const roomCards = document.querySelectorAll('#roomsList .room-card');
 
-    // 6. DELETE BOOKING VIA BACKEND
-    async function deleteBooking(bookingId) {
-        if (confirm('Are you sure you want to delete this booking record?')) {
-            try {
-                await fetch(`${API_BASE_URL}/bookings/${bookingId}`, {
-                    method: 'DELETE'
-                });
-                fetchBookings();
-            } catch (error) {
-                console.error('Error deleting booking:', error);
-            }
-        }
-    }
+    roomCards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        const price = parseInt(card.getAttribute('data-price'));
+        const capacity = parseInt(card.getAttribute('data-capacity'));
 
-    // 7. EXPORT DATA AS CSV
-    function exportData() {
-        if (globalBookingsData.length === 0) {
-            alert('No booking data to export.');
-            return;
+        let matchesSearch = name.includes(searchVal);
+        let matchesPrice = true;
+        let matchesCapacity = true;
+
+        if (priceVal === '5000') matchesPrice = price <= 5000;
+        else if (priceVal === '10000') matchesPrice = price <= 10000;
+        else if (priceVal === '10001') matchesPrice = price > 10000;
+
+        if (capacityVal !== 'all') {
+            matchesCapacity = capacity <= parseInt(capacityVal);
         }
 
-        let csvContent = "data:text/csv;charset=utf-8,";
-        csvContent += "Guest Name,Email,Room,Check-in Date,Check-in Time,Check-out Date,Check-out Time,Nights,Total Paid,Payment Method\n";
+        if (matchesSearch && matchesPrice && matchesCapacity) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
 
-        globalBookingsData.forEach(b => {
-            let row = `"${b.guest_name}","${b.guest_email}","${b.room_type}","${b.check_in_date ? b.check_in_date.split('T')[0] : ''}","${b.check_in_time || '14:00'}","${b.check_out_date ? b.check_out_date.split('T')[0] : ''}","${b.check_out_time || '12:00'}","${b.total_nights || 1}","${b.total_price}","${b.payment_method}"`;
-            csvContent += row + "\n";
-        });
+function togglePaymentFields() {
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+    const gcashBox = document.getElementById('gcash-details');
+    const cardBox = document.getElementById('card-details');
 
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "lunara_hotel_bookings_with_time.csv");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    gcashBox.style.display = (paymentMethod === 'GCash') ? 'block' : 'none';
+    cardBox.style.display = (paymentMethod === 'Card') ? 'block' : 'none';
+}
+
+function showTab(tabId, selectedRoom = '') {
+    let tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+
+    if (selectedRoom) {
+        document.getElementById('roomtype').value = selectedRoom;
+        calculatePrice();
     }
 
-    // MODAL CONTROLS
-    function openWalkInModal() { document.getElementById('walkInModal').style.display = 'flex'; }
-    function closeWalkInModal() { document.getElementById('walkInModal').style.display = 'none'; }
+    window.scrollTo(0, 0);
+}
+
+function openAboutModal() {
+    document.getElementById('aboutModal').style.display = 'flex';
+}
+
+function closeAboutModal() {
+    document.getElementById('aboutModal').style.display = 'none';
+}
+
+function closeReceiptModal() {
+    document.getElementById('receiptModal').style.display = 'none';
+    document.getElementById('bookingForm').reset();
+    document.getElementById('price-summary').style.display = 'none';
+    document.getElementById('gcash-details').style.display = 'none';
+    document.getElementById('card-details').style.display = 'none';
+    showTab('home-page');
+}
+
+window.onclick = function(event) {
+    const aboutModal = document.getElementById('aboutModal');
+    const receiptModal = document.getElementById('receiptModal');
+    if (event.target === aboutModal) aboutModal.style.display = 'none';
+    if (event.target === receiptModal) closeReceiptModal();
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    const themeBtn = document.getElementById('themeBtn');
+    if (document.body.classList.contains('dark-theme')) {
+        themeBtn.innerText = '☀️ Light Mode';
+    } else {
+        themeBtn.innerText = '🌙 Dark Mode';
+    }
+}
+
+function bookRoom(e) {
+    e.preventDefault();
+    
+    const bookingData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        room: document.getElementById('roomtype').value + " Room",
+        guests: document.getElementById('guests').value,
+        checkin: document.getElementById('checkin').value,
+        timein: document.getElementById('timein').value,
+        checkout: document.getElementById('checkout').value,
+        timeout: document.getElementById('timeout').value,
+        nights: document.getElementById('total-nights').innerText,
+        totalPrice: document.getElementById('total-price').innerText,
+        paymentMethod: document.querySelector('input[name="payment"]:checked').value,
+        dateBooked: new Date().toLocaleDateString()
+    };
+
+    document.getElementById('rec-name').innerText = bookingData.name;
+    document.getElementById('rec-email').innerText = bookingData.email;
+    document.getElementById('rec-room').innerText = bookingData.room;
+    document.getElementById('rec-guests').innerText = bookingData.guests;
+    document.getElementById('rec-checkin').innerText = bookingData.checkin;
+    document.getElementById('rec-timein').innerText = bookingData.timein;
+    document.getElementById('rec-checkout').innerText = bookingData.checkout;
+    document.getElementById('rec-timeout').innerText = bookingData.timeout;
+    document.getElementById('rec-nights').innerText = bookingData.nights;
+    document.getElementById('rec-payment').innerText = bookingData.paymentMethod;
+    document.getElementById('rec-total').innerText = bookingData.totalPrice;
+
+    // Isina-save sa LocalStorage para mabasa ng admin.html
+    let history = JSON.parse(localStorage.getItem('lunaraBookings')) || [];
+    history.push(bookingData);
+    localStorage.setItem('lunaraBookings', JSON.stringify(history));
+
+    document.getElementById('receiptModal').style.display = 'flex';
+}
 </script>
 
 </body>
