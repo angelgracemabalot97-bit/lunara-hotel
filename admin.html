@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Lunara Hotel</title>
-    <!-- GUMAGAMIT NA DIN NG COMBINED STYLE.CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 
-    <!-- ADMIN HEADER -->
     <header>
         <h1>LUNARA HOTEL — Admin Panel</h1>
         <span>Logged in as: Administrator</span>
     </header>
 
     <div class="admin-container">
-        
-        <!-- DASHBOARD SUMMARY CARDS -->
         <div class="stats-grid">
             <div class="stat-card">
                 <h4>Total Bookings</h4>
@@ -27,13 +23,12 @@
                 <h4>Total Revenue</h4>
                 <p class="number" id="totalRevenue">₱0</p>
             </div>
-            <div class="stat-card" style="border-left-color: var(--success);">
+            <div class="stat-card" style="border-left-color: #2ecc71;">
                 <h4>Active Guests</h4>
                 <p class="number" id="activeGuestsCount">0</p>
             </div>
         </div>
 
-        <!-- BOOKINGS TABLE -->
         <div class="table-container">
             <div class="table-header">
                 <h3>Reservation Management</h3>
@@ -55,13 +50,11 @@
                     </tr>
                 </thead>
                 <tbody id="adminBookingTable">
-                    <!-- Dito lalabas ang mga pumasok na bookings -->
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- JAVASCRIPT FOR ADMIN -->
     <script>
         const API_BASE_URL = 'http://localhost:3000/api/v1';
 
